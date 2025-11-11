@@ -5,6 +5,8 @@ import tracemalloc
 import statistics
 import csv
 import os
+import sys
+sys.setrecursionlimit(1000000)
 
 def bubble_sort(arr):
     a = arr[:]  # copia para no modificar original
@@ -37,8 +39,6 @@ def merge_sort(arr):
     res.extend(left[i:]); res.extend(right[j:])
     return res
 
-import sys
-sys.setrecursionlimit(1000000)
 def quick_sort(arr):
     a = arr[:]
     def _qs(lo, hi):
@@ -56,12 +56,12 @@ def quick_sort(arr):
     _qs(0, len(a)-1)
     return a
 
-# Measurement helpers
+# Medición de tiempo y memoria
 def measure_time_and_mem(func, arr, repeats=5):
     times = []
     mem_peaks = []
     for _ in range(repeats):
-        arr_copy = arr[:]  # ensure same input
+        arr_copy = arr[:]  # copia para cada repetición
         tracemalloc.start()
         t0 = time.perf_counter()
         func(arr_copy)
